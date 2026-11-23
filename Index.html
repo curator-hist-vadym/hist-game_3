@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FFDBDA">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%93%9C%3C/text%3E%3C/svg%3E">
+<title>Українські діячі національного відродження</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #FFEFEF;
+    --topbar: #FFDBDA;
+    --panel: #ffffff;
+    --card: #ffffff;
+    --drop: #FFF6F6;
+    --line: rgba(235, 38, 29, .35);
+    --chip: #FFD9D4;
+    --red: #EB261D;
+    --red-2: #F25944;
+    --text: #000000;
+    --text-2: #2b1d1d;
+    --dim: #7d5f5f;
+    --wm: #FFDBDA;
+    --font: "Google Sans", "Google Sans Text", "Golos Text", "Segoe UI", Roboto, Arial, sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  /* Фірмовий стиль ZNOHUB — історія України (світла тема за шаблоном конспекту) */
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: var(--font); font-size: 17px; line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::after { content: ""; position: fixed; left: 0; right: 0; bottom: 0; height: 6px; background: linear-gradient(180deg, var(--red), var(--red-2)); z-index: 2; pointer-events: none; }
+  /* водяний знак: крапкова сітка по краях */
+  .wm { position: fixed; bottom: 0; top: 35vh; width: max(0px, calc((100vw - 1440px) / 2 + 8px)); pointer-events: none; z-index: 0;
+        background-image: radial-gradient(circle, var(--wm) 8px, transparent 8.5px); background-size: 42px 42px;
+        -webkit-mask-image: linear-gradient(to bottom, transparent, #000 40%); mask-image: linear-gradient(to bottom, transparent, #000 40%); }
+  .wm.l { left: 0; background-position: 14px 0; } .wm.r { right: 0; background-position: -14px 0; }
+  .wrap { position: relative; z-index: 1; max-width: 1440px; margin: 0 auto; padding: 12px 16px 48px; }
+
+  .topbar { display: flex; align-items: center; gap: 16px; background: var(--topbar); border-radius: 999px; padding: 12px 26px; position: relative; min-height: 52px; }
+  .logo { display: inline-flex; align-items: center; color: #000; line-height: 0; }
+  .logo svg { height: 24px; width: auto; display: block; }
+  .nick { position: absolute; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 500; color: var(--text); white-space: nowrap; }
+  .nick svg { width: 20px; height: 20px; flex: none; }
+
+  .banner { position: relative; overflow: hidden; margin-top: 12px; border-radius: 18px; background: linear-gradient(180deg, var(--red), var(--red-2)); padding: 22px 24px; text-align: center; color: #fff; }
+  .banner::before, .banner::after { content: ""; position: absolute; top: 0; bottom: 0; width: 220px; background-repeat: no-repeat; background-size: auto 100%; pointer-events: none; }
+  .banner::before { left: 0; background-position: left center; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 181 58'%3E%3Cg fill='none' stroke='%23fff' stroke-width='22' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath opacity='.25' d='M25 -8 L4 26.6 L25 61'/%3E%3Cpath opacity='.15' d='M70 -8 L49 26.6 L70 61'/%3E%3Cpath opacity='.08' d='M115 -8 L94 26.6 L115 61'/%3E%3C/g%3E%3C/svg%3E"); }
+  .banner::after { right: 0; background-position: right center; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 181 58'%3E%3Cg fill='none' stroke='%23fff' stroke-width='22' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath opacity='.25' d='M156 -8 L177 26.6 L156 61'/%3E%3Cpath opacity='.15' d='M111 -8 L132 26.6 L111 61'/%3E%3Cpath opacity='.08' d='M66 -8 L87 26.6 L66 61'/%3E%3C/g%3E%3C/svg%3E"); }
+  .banner h1 { position: relative; z-index: 1; margin: 0; font-size: clamp(22px, 3vw, 34px); font-weight: 600; line-height: 1.2; }
+
+  .task { margin: 22px 0; border-left: 4px solid var(--red); border-radius: 2px; padding: 2px 0 2px 18px; font-size: clamp(16px, 1.4vw, 20px); color: var(--text-2); max-width: 1200px; }
+  .task b { color: var(--red); }
+
+  .panel { border: 2px solid var(--line); border-radius: 20px; background: var(--panel); padding: 16px; }
+  .bank { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; min-height: 64px; align-items: stretch; }
+  .bank-empty { color: var(--dim); align-self: center; padding: 0 4px; grid-column: 1 / -1; }
+
+  .chip { font: inherit; color: var(--text); background: var(--chip); border: 2px solid var(--line); border-radius: 14px; padding: 9px 14px;
+          cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; text-align: left; line-height: 1.25; display: block; width: 100%; }
+  .chip .nm { display: block; font-weight: 700; font-size: 17px; color: var(--red); }
+  .chip .mk { display: block; font-weight: 400; font-size: 14px; color: var(--text-2); margin-top: 2px; }
+  .chip:focus-visible, .zone:focus-visible, .btn:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+  .chip.sel { background: linear-gradient(180deg, var(--red), var(--red-2)); border-color: var(--red); }
+  .chip.sel .nm, .chip.sel .mk { color: #fff; }
+  .chip.src { opacity: .35; }
+  .chip.ghost { position: fixed; z-index: 50; pointer-events: none; cursor: grabbing; box-shadow: 0 10px 28px rgba(235, 38, 29, .25); }
+  .chip.ok { background: linear-gradient(180deg, var(--red), var(--red-2)); border-color: var(--red); cursor: default; }
+  .chip.ok .nm, .chip.ok .mk { color: #fff; }
+  .chip.bad { background: #fff; border-color: var(--line); color: var(--dim); cursor: default; }
+  .chip.bad .nm { color: var(--text); }
+  .chip.bad .mk { color: var(--dim); }
+  .chip .mark { margin-left: 8px; }
+  .chip .hint { display: block; font-weight: 600; font-size: 14px; color: var(--red); margin-top: 2px; }
+
+  .groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 22px; align-items: start; }
+  .group { border: 2px solid var(--line); border-radius: 20px; background: var(--card); padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; }
+  .ghead { display: flex; align-items: center; gap: 14px; padding-bottom: 14px; margin-bottom: 4px; border-bottom: 1.5px solid var(--line); cursor: pointer; }
+  .badge { width: 40px; height: 40px; flex: none; border-radius: 10px; background: linear-gradient(180deg, var(--red), var(--red-2)); color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 19px; }
+  .gname { font-weight: 700; font-size: 19px; line-height: 1.25; color: var(--red); }
+  .zone { min-height: 68px; border: 2px dashed rgba(235, 38, 29, .55); border-radius: 14px; background: var(--drop); padding: 4px; display: flex; align-items: stretch; cursor: pointer; }
+  .zone.filled { border-color: transparent; background: transparent; padding: 0; }
+  .zone.over { background: var(--chip); border-color: var(--red); }
+  .zone .ph { width: 100%; align-self: center; text-align: center; color: var(--dim); font-size: 15px; }
+
+  .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 22px; }
+  .btn { font: inherit; font-weight: 700; font-size: 18px; color: #fff; border: 0; border-radius: 14px; padding: 14px 26px; cursor: pointer; background: linear-gradient(180deg, var(--red), var(--red-2)); }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .btn.alt { background: #fff; color: var(--red); border: 2px solid var(--red); padding: 12px 24px; }
+  .status { color: var(--dim); font-size: 16px; }
+
+  .result { margin-top: 22px; display: none; }
+  .result.on { display: block; }
+  .score { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .score .num { font-weight: 800; font-size: 44px; line-height: 1; color: var(--red); }
+  .score .num span { color: var(--dim); font-weight: 600; font-size: 28px; }
+  .score p { margin: 0; color: var(--text-2); max-width: 60ch; }
+  .sheet-wrap { margin-top: 18px; }
+  .sheet-wrap h2 { font-size: 20px; margin: 0 0 6px; }
+  .sheet-wrap .sub { color: var(--dim); margin: 0 0 14px; font-size: 15px; }
+  .sheet-img { display: block; width: 100%; max-width: 1000px; height: auto; border-radius: 14px; border: 2px solid var(--line); }
+
+  @media (max-width: 1024px) {
+    .chip .nm { font-size: 16px; }
+    .group { padding: 16px; }
+  }
+  @media (max-width: 680px) {
+    .groups { grid-template-columns: 1fr; }
+    .nick { position: static; transform: none; margin-left: auto; font-size: 14px; }
+    .nick span { display: none; }
+    .logo svg { height: 20px; }
+    .banner::before, .banner::after { width: 110px; background-size: auto 72px; }
+    .bank { grid-template-columns: 1fr; }
+    .actions .btn { flex: 1 1 auto; }
+  }
+  @media (max-width: 420px) { .chip { font-size: 15px; padding: 9px 12px; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wm l" aria-hidden="true"></div><div class="wm r" aria-hidden="true"></div>
+<div class="wrap">
+  <header class="topbar">
+    <div class="logo" role="img" aria-label="znohub."><svg viewBox="0 0 1069 230" fill="currentColor" aria-hidden="true"><path d="M134.817 226.446H0L68.0878 105.412H0V64.1061H134.817L66.7291 185.14H134.817V226.446Z"/><path d="M198.98 226.446H157.764V63.8024H167.729L181.316 79.596C187.959 73.5215 195.457 68.8644 203.811 65.6247C212.265 62.2838 221.072 60.6133 230.23 60.6133C240.094 60.6133 249.404 62.5369 258.16 66.384C266.916 70.1299 274.566 75.3438 281.108 82.0258C287.65 88.6064 292.783 96.3514 296.507 105.261C300.331 114.069 302.244 123.484 302.244 133.507V226.446H261.029V133.507C261.029 129.255 260.223 125.256 258.613 121.51C257.003 117.663 254.788 114.322 251.97 111.487C249.152 108.652 245.881 106.425 242.157 104.805C238.433 103.185 234.458 102.375 230.23 102.375C225.903 102.375 221.826 103.185 218.002 104.805C214.177 106.425 210.856 108.652 208.038 111.487C205.22 114.322 203.005 117.663 201.395 121.51C199.785 125.256 198.98 129.255 198.98 133.507V226.446Z"/><path d="M530.668 226.114H489.475V0H530.668V71.444C535.597 67.7183 540.677 65.1002 545.907 63.5897C551.138 61.9786 556.47 61.173 561.902 61.173C571.861 61.173 581.216 63.0862 589.967 66.9127C598.719 70.6385 606.314 75.8243 612.752 82.4703C619.29 89.0155 624.42 96.7188 628.142 105.58C631.965 114.341 633.876 123.705 633.876 133.674V226.114H592.382V133.674H592.683C592.683 129.445 591.879 125.468 590.269 121.742C588.66 117.915 586.447 114.592 583.63 111.773C580.813 108.953 577.544 106.738 573.822 105.127C570.1 103.516 566.127 102.71 561.902 102.71C557.576 102.71 553.502 103.516 549.68 105.127C545.857 106.738 542.538 108.953 539.721 111.773C536.904 114.592 534.691 117.915 533.082 121.742C531.472 125.468 530.668 129.445 530.668 133.674V226.114Z"/><path d="M780.843 207.233C777.523 210.254 773.952 213.124 770.13 215.843C766.408 218.461 762.485 220.777 758.36 222.791C754.236 224.704 749.961 226.214 745.535 227.322C741.209 228.53 736.783 229.134 732.256 229.134C722.298 229.134 712.943 227.372 704.191 223.848C695.439 220.324 687.744 215.339 681.105 208.895C674.566 202.349 669.386 194.445 665.563 185.181C661.841 175.816 659.98 165.343 659.98 153.763V64.3449H701.022V153.763C701.022 159.201 701.827 164.085 703.437 168.415C705.147 172.644 707.41 176.219 710.227 179.139C713.043 182.059 716.312 184.274 720.034 185.785C723.857 187.295 727.931 188.05 732.256 188.05C736.481 188.05 740.455 187.094 744.177 185.181C747.999 183.167 751.319 180.549 754.135 177.326C756.952 174.104 759.165 170.479 760.775 166.451C762.384 162.322 763.189 158.093 763.189 153.763V64.3449H804.382V226.114H794.423L780.843 207.233Z"/><path d="M997.672 143.794C997.672 156.482 995.509 168.062 991.184 178.535C986.858 189.007 980.973 198.019 973.529 205.572C966.086 213.023 957.334 218.813 947.275 222.942C937.316 227.07 926.603 229.134 915.135 229.134C903.768 229.134 893.055 227.02 882.995 222.791C873.037 218.561 864.285 212.671 856.741 205.118C849.297 197.566 843.412 188.604 839.087 178.232C834.761 167.76 832.598 156.281 832.598 143.794V0H873.942V75.5222C876.155 72.7027 878.821 70.1853 881.939 67.97C885.158 65.7547 888.578 63.9422 892.2 62.5324C895.922 61.1227 899.744 60.0654 903.667 59.3605C907.591 58.5549 911.413 58.1521 915.135 58.1521C926.603 58.1521 937.316 60.3171 947.275 64.647C957.334 68.8763 966.086 74.8174 973.529 82.4703C980.973 90.1232 986.858 99.1859 991.184 109.658C995.509 120.03 997.672 131.409 997.672 143.794ZM956.177 143.794C956.177 137.551 955.071 131.761 952.858 126.424C950.745 120.987 947.828 116.304 944.106 112.377C940.384 108.45 936.008 105.379 930.978 103.163C926.049 100.948 920.768 99.8404 915.135 99.8404C909.502 99.8404 904.17 101.099 899.141 103.617C894.212 106.033 889.886 109.306 886.164 113.434C882.442 117.462 879.525 122.145 877.413 127.482C875.3 132.718 874.244 138.155 874.244 143.794C874.244 150.038 875.3 155.828 877.413 161.164C879.525 166.501 882.442 171.133 886.164 175.061C889.886 178.988 894.212 182.109 899.141 184.425C904.17 186.641 909.502 187.748 915.135 187.748C920.768 187.748 926.049 186.641 930.978 184.425C936.008 182.109 940.384 178.988 944.106 175.061C947.828 171.133 950.745 166.501 952.858 161.164C955.071 155.828 956.177 150.038 956.177 143.794Z"/><path d="M396.301 222C439.879 222 475.205 186.672 475.205 143.096C475.205 99.5194 439.879 64.1914 396.301 64.1914C352.723 64.1914 317.396 99.5194 317.396 143.096C317.396 186.672 352.723 222 396.301 222ZM393.311 100.364C388.657 96.33 381.616 96.8326 377.583 101.486C373.55 106.139 374.054 113.182 378.707 117.215L407.166 141.88L378.323 169.325C373.862 173.569 373.687 180.628 377.932 185.087C382.176 189.55 389.234 189.724 393.695 185.479L430.063 150.872C435.564 145.639 435.358 136.804 429.62 131.829L393.311 100.364Z" fill-rule="evenodd" clip-rule="evenodd"/><path d="M1069 197.923C1069 213.68 1056.43 226.453 1040.91 226.453C1025.4 226.453 1012.83 213.68 1012.83 197.923C1012.83 182.166 1025.4 169.393 1040.91 169.393C1056.43 169.393 1069 182.166 1069 197.923Z"/></svg></div>
+    <div class="nick"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="#EB261D" stroke-width="2"/><circle cx="12" cy="12" r="4.3" fill="none" stroke="#EB261D" stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.3" fill="#EB261D"/></svg><span>yanina_znohub_hist</span></div>
+  </header>
+
+  <div class="banner"><h1>Українські діячі національного відродження</h1></div>
+
+  <p class="task"><b>Сортування за групами.</b> Перетягніть кожне ім’я на вільне поле групи, до якої належить діяч. На телефоні можна торкнутися імені, а потім поля. Щоб повернути ім’я, торкніться його в групі.</p>
+
+  <section class="panel" aria-label="Імена для розподілу"><div class="bank" id="bank" data-zone="bank"></div></section>
+
+  <section class="groups" id="groups"></section>
+
+  <div class="actions">
+    <button class="btn" id="check">Перевірити</button>
+    <button class="btn alt" id="reset">Почати знову</button>
+    <span class="status" id="status" role="status"></span>
+  </div>
+
+  <section class="result" id="result" aria-live="polite">
+    <div class="score"><div class="num" id="num"></div><p id="comment"></p></div>
+    <div class="sheet-wrap">
+      <h2>Шпаргалка зі словами-маркерами</h2>
+      <p class="sub" id="sheetSub">Збережіть картинку, щоб повторювати перед НМТ.</p>
+      <div class="actions" style="margin-top:0;margin-bottom:14px">
+        <button class="btn" id="dl">Завантажити шпаргалку</button>
+        <span class="status" id="dlStatus" role="status"></span>
+      </div>
+      <img class="sheet-img" id="sheetImg" alt="Шпаргалка: діячі національного відродження та слова-маркери">
+    </div>
+  </section>
+</div>
+
+<script>
+const GROUPS = [
+  { id: "kmb", name: "Кирило-Мефодіївське братство", slots: 3 },
+  { id: "rt",  name: "Руська трійця", slots: 3 },
+  { id: "tgks", name: "Товариство греко-католицьких священиків", slots: 1 },
+  { id: "hr",  name: "Громадівський рух (Громадівці)", slots: 2 }
+];
+const PEOPLE = [
+  { name: "Тарас Шевченко", hint: "автор «Кобзаря», поет, символ України", g: "kmb", desc: "Поет, художник, символ України.",
+    m: ["«Кобзар» (1840)", "член Кирило-Мефодіївського братства", "поет, живописець, гравер, етнограф"] },
+  { name: "Микола Костомаров", hint: "історик, етнограф, професор Київського університету", g: "kmb", desc: "Історик, етнограф, ідеолог братства.",
+    m: ["«Книга буття українського народу», «Статут»", "професор Київського університету", "етнопсихолог"] },
+  { name: "Пантелеймон Куліш", hint: "автор «Чорної ради», фольклорист, перекладач", g: "kmb", desc: "Письменник, діяч відродження.",
+    m: ["«Чорна рада» — перший історичний роман", "фольклорист, перекладач, видавець"] },
+  { name: "Маркіян Шашкевич", hint: "галицький «будитель», перша публічна промова українською (1836)", g: "rt", desc: "Галицький «будитель».",
+    m: ["лідер «Руської трійці» (1833–1837)", "1836 р. — перша публічна промова українською", "священник УГКЦ"] },
+  { name: "Іван Вагилевич", hint: "поет, філолог, учасник Руського собору", g: "rt", desc: "Поет, філолог, фольклорист.",
+    m: ["співавтор «Русалки Дністрової»", "учасник Руського собору", "греко-католицький священник"] },
+  { name: "Яків Головацький", hint: "мовознавець, етнограф, історик, священник УГКЦ", g: "rt", desc: "Мовознавець, етнограф, історик.",
+    m: ["співзасновник «Руської трійці»", "співавтор «Русалки Дністрової»"] },
+  { name: "Іван Могильницький", hint: "освітній і церковний діяч, Перемишль, 1816 р.", g: "tgks", desc: "Освітній і церковний діяч.",
+    m: ["1816 р., Перемишль", "ініціатор першої в Галичині культурно-освітньої організації"] },
+  { name: "Володимир Антонович", hint: "історик, археолог, лідер «хлопоманів»", g: "hr", desc: "Історик, археолог, лідер громадівців.",
+    m: ["лідер «хлопоманів»", "співзасновник першої Київської громади (з О. Кониським)", "професор Київського університету"] },
+  { name: "Михайло Драгоманов", hint: "публіцист, висланий за Емським указом, Женева", g: "hr", desc: "Публіцист, історик, засновник українського соціалізму.",
+    m: ["висланий за Емським указом", "1876 р. виїхав до Женеви", "часопис «Громада»"] }
+];
+const gName = id => GROUPS.find(g => g.id === id).name;
+
+let place = {}, order = [], selected = null, checked = false;
+const $ = id => document.getElementById(id);
+const SLOTS = []; GROUPS.forEach(g => { for (let i = 0; i < g.slots; i++) SLOTS.push(g.id + "-" + i); });
+const slotGroup = sid => sid.split("-")[0];
+const person = n => PEOPLE.find(x => x.name === n);
+const inSlot = sid => Object.keys(place).find(n => place[n] === sid) || null;
+
+function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+
+function start() {
+  place = {}; PEOPLE.forEach(p => place[p.name] = null);
+  order = shuffle(PEOPLE.map(p => p.name));
+  selected = null; checked = false;
+  $("result").classList.remove("on");
+  $("status").textContent = ""; $("dlStatus").textContent = "";
+  $("check").disabled = false;
+  render();
+}
+
+function makeChip(name) {
+  const p = person(name);
+  const b = document.createElement("button");
+  b.className = "chip"; b.type = "button"; b.dataset.name = name;
+  const nm = document.createElement("span"); nm.className = "nm"; nm.textContent = name; b.appendChild(nm);
+  const mk = document.createElement("span"); mk.className = "mk"; mk.textContent = p.hint; b.appendChild(mk);
+  if (selected === name) b.classList.add("sel");
+  if (checked) {
+    const ok = place[name] && slotGroup(place[name]) === p.g;
+    b.classList.add(ok ? "ok" : "bad");
+    const m = document.createElement("span"); m.className = "mark"; m.textContent = ok ? "✓" : "✗"; nm.appendChild(m);
+    if (!ok) { const h = document.createElement("span"); h.className = "hint"; h.textContent = "Правильно: " + gName(p.g); b.appendChild(h); }
+    b.setAttribute("aria-label", name + (ok ? ": правильно" : ": неправильно, правильна група — " + gName(p.g)));
+  }
+  b.addEventListener("pointerdown", onDown);
+  b.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); tapChip(name); } });
+  return b;
+}
+
+function render() {
+  const bank = $("bank"); bank.innerHTML = "";
+  const free = order.filter(n => place[n] === null);
+  free.forEach(n => bank.appendChild(makeChip(n)));
+  if (!free.length) { const s = document.createElement("span"); s.className = "bank-empty"; s.textContent = checked ? "Перевірку завершено." : "Усі імена розподілено — натисніть «Перевірити»."; bank.appendChild(s); }
+
+  const wrap = $("groups"); wrap.innerHTML = "";
+  GROUPS.forEach((g, i) => {
+    const card = document.createElement("div"); card.className = "group"; card.dataset.zone = g.id;
+    card.innerHTML = `<div class="ghead"><div class="badge">${i + 1}</div><div class="gname">${g.name}</div></div>`;
+    card.querySelector(".ghead").addEventListener("click", () => tapZone(g.id));
+    for (let k = 0; k < g.slots; k++) {
+      const sid = g.id + "-" + k, occ = inSlot(sid);
+      const z = document.createElement("div"); z.className = "zone" + (occ ? " filled" : ""); z.dataset.zone = sid; z.tabIndex = occ ? -1 : 0; z.setAttribute("role", "button");
+      z.setAttribute("aria-label", "Поле " + (k + 1) + " з " + g.slots + ", група: " + g.name);
+      if (occ) z.appendChild(makeChip(occ));
+      else { const ph = document.createElement("div"); ph.className = "ph"; ph.textContent = "Перетягніть сюди ім’я"; z.appendChild(ph); }
+      z.addEventListener("click", e => { if (e.target.closest(".chip")) return; tapZone(sid); });
+      z.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target === z) { e.preventDefault(); tapZone(sid); } });
+      card.appendChild(z);
+    }
+    wrap.appendChild(card);
+  });
+}
+
+/* zone: "bank", id групи (перше вільне поле) або id поля */
+function moveTo(name, zone) {
+  if (zone === "bank") place[name] = null;
+  else {
+    let sid = zone;
+    if (!zone.includes("-")) {
+      if (place[name] && slotGroup(place[name]) === zone) sid = place[name];
+      else { sid = SLOTS.filter(x => slotGroup(x) === zone).find(x => !inSlot(x)); if (!sid) { $("status").textContent = "У цій групі всі поля зайняті. Перетягніть ім’я на конкретне поле, щоб замінити."; selected = null; render(); return; } }
+    }
+    const occ = inSlot(sid);
+    if (occ && occ !== name) place[occ] = place[name];
+    place[name] = sid;
+  }
+  selected = null; $("status").textContent = ""; render();
+}
+function tapZone(zone) { if (checked || !selected) return; moveTo(selected, zone); }
+function tapChip(name) {
+  if (checked) return;
+  if (place[name] !== null) {
+    if (selected && selected !== name) moveTo(selected, place[name]);
+    else moveTo(name, "bank");
+    return;
+  }
+  selected = selected === name ? null : name; render();
+  const el = document.querySelector(`.chip[data-name="${CSS.escape(name)}"]`); if (el) el.focus();
+}
+
+/* перетягування мишею й пальцем */
+let drag = null;
+function onDown(e) {
+  if (checked || e.button > 0) return;
+  const el = e.currentTarget;
+  drag = { name: el.dataset.name, el, x: e.clientX, y: e.clientY, moved: false, ghost: null, over: null, id: e.pointerId };
+  el.setPointerCapture(e.pointerId);
+  el.addEventListener("pointermove", onMove);
+  el.addEventListener("pointerup", onUp);
+  el.addEventListener("pointercancel", onCancel);
+}
+function zoneAt(x, y) { const t = document.elementFromPoint(x, y); return t ? t.closest("[data-zone]") : null; }
+function onMove(e) {
+  if (!drag) return;
+  if (!drag.moved && Math.hypot(e.clientX - drag.x, e.clientY - drag.y) < 6) return;
+  if (!drag.moved) {
+    drag.moved = true;
+    const r = drag.el.getBoundingClientRect();
+    const g = drag.el.cloneNode(true); g.classList.add("ghost"); g.classList.remove("sel");
+    g.style.width = r.width + "px"; g.style.left = r.left + "px"; g.style.top = r.top + "px";
+    drag.dx = drag.x - r.left; drag.dy = drag.y - r.top;
+    document.body.appendChild(g); drag.ghost = g; drag.el.classList.add("src");
+  }
+  drag.ghost.style.left = (e.clientX - drag.dx) + "px"; drag.ghost.style.top = (e.clientY - drag.dy) + "px";
+  const z = zoneAt(e.clientX, e.clientY);
+  if (drag.over && drag.over !== z) drag.over.classList.remove("over");
+  if (z && z.classList.contains("zone")) z.classList.add("over");
+  drag.over = z;
+}
+function cleanup() {
+  if (!drag) return;
+  const el = drag.el;
+  el.removeEventListener("pointermove", onMove); el.removeEventListener("pointerup", onUp); el.removeEventListener("pointercancel", onCancel);
+  if (drag.ghost) drag.ghost.remove();
+  if (drag.over) drag.over.classList.remove("over");
+  el.classList.remove("src");
+}
+function onUp(e) {
+  if (!drag) return;
+  const d = drag; cleanup(); drag = null;
+  if (d.moved) { const z = zoneAt(e.clientX, e.clientY); if (z) moveTo(d.name, z.dataset.zone); }
+  else tapChip(d.name);
+}
+function onCancel() { cleanup(); drag = null; }
+
+/* перевірка */
+$("check").addEventListener("click", async () => {
+  if (checked) return;
+  const left = PEOPLE.filter(p => place[p.name] === null).length;
+  if (left) { $("status").textContent = "Залишилось розподілити: " + left + " з " + PEOPLE.length + "."; return; }
+  checked = true; selected = null; $("check").disabled = true; $("status").textContent = "";
+  render();
+  const score = PEOPLE.filter(p => place[p.name] && slotGroup(place[p.name]) === p.g).length;
+  $("num").innerHTML = `${score} <span>/ ${PEOPLE.length}</span>`;
+  $("comment").textContent = score === PEOPLE.length
+    ? "Правильних відповідей: усі. Шпаргалка нижче допоможе закріпити слова-маркери."
+    : `Правильних відповідей: ${score} з ${PEOPLE.length}. Під неправильними іменами вказано правильну групу, а в шпаргалці — слова-маркери для кожного діяча.`;
+  $("result").classList.add("on");
+  await buildSheet();
+  $("result").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+});
+$("reset").addEventListener("click", start);
+
+/* шпаргалка (canvas → PNG) */
+const LOGO_PATHS = ["M134.817 226.446H0L68.0878 105.412H0V64.1061H134.817L66.7291 185.14H134.817V226.446Z", "M198.98 226.446H157.764V63.8024H167.729L181.316 79.596C187.959 73.5215 195.457 68.8644 203.811 65.6247C212.265 62.2838 221.072 60.6133 230.23 60.6133C240.094 60.6133 249.404 62.5369 258.16 66.384C266.916 70.1299 274.566 75.3438 281.108 82.0258C287.65 88.6064 292.783 96.3514 296.507 105.261C300.331 114.069 302.244 123.484 302.244 133.507V226.446H261.029V133.507C261.029 129.255 260.223 125.256 258.613 121.51C257.003 117.663 254.788 114.322 251.97 111.487C249.152 108.652 245.881 106.425 242.157 104.805C238.433 103.185 234.458 102.375 230.23 102.375C225.903 102.375 221.826 103.185 218.002 104.805C214.177 106.425 210.856 108.652 208.038 111.487C205.22 114.322 203.005 117.663 201.395 121.51C199.785 125.256 198.98 129.255 198.98 133.507V226.446Z", "M530.668 226.114H489.475V0H530.668V71.444C535.597 67.7183 540.677 65.1002 545.907 63.5897C551.138 61.9786 556.47 61.173 561.902 61.173C571.861 61.173 581.216 63.0862 589.967 66.9127C598.719 70.6385 606.314 75.8243 612.752 82.4703C619.29 89.0155 624.42 96.7188 628.142 105.58C631.965 114.341 633.876 123.705 633.876 133.674V226.114H592.382V133.674H592.683C592.683 129.445 591.879 125.468 590.269 121.742C588.66 117.915 586.447 114.592 583.63 111.773C580.813 108.953 577.544 106.738 573.822 105.127C570.1 103.516 566.127 102.71 561.902 102.71C557.576 102.71 553.502 103.516 549.68 105.127C545.857 106.738 542.538 108.953 539.721 111.773C536.904 114.592 534.691 117.915 533.082 121.742C531.472 125.468 530.668 129.445 530.668 133.674V226.114Z", "M780.843 207.233C777.523 210.254 773.952 213.124 770.13 215.843C766.408 218.461 762.485 220.777 758.36 222.791C754.236 224.704 749.961 226.214 745.535 227.322C741.209 228.53 736.783 229.134 732.256 229.134C722.298 229.134 712.943 227.372 704.191 223.848C695.439 220.324 687.744 215.339 681.105 208.895C674.566 202.349 669.386 194.445 665.563 185.181C661.841 175.816 659.98 165.343 659.98 153.763V64.3449H701.022V153.763C701.022 159.201 701.827 164.085 703.437 168.415C705.147 172.644 707.41 176.219 710.227 179.139C713.043 182.059 716.312 184.274 720.034 185.785C723.857 187.295 727.931 188.05 732.256 188.05C736.481 188.05 740.455 187.094 744.177 185.181C747.999 183.167 751.319 180.549 754.135 177.326C756.952 174.104 759.165 170.479 760.775 166.451C762.384 162.322 763.189 158.093 763.189 153.763V64.3449H804.382V226.114H794.423L780.843 207.233Z", "M997.672 143.794C997.672 156.482 995.509 168.062 991.184 178.535C986.858 189.007 980.973 198.019 973.529 205.572C966.086 213.023 957.334 218.813 947.275 222.942C937.316 227.07 926.603 229.134 915.135 229.134C903.768 229.134 893.055 227.02 882.995 222.791C873.037 218.561 864.285 212.671 856.741 205.118C849.297 197.566 843.412 188.604 839.087 178.232C834.761 167.76 832.598 156.281 832.598 143.794V0H873.942V75.5222C876.155 72.7027 878.821 70.1853 881.939 67.97C885.158 65.7547 888.578 63.9422 892.2 62.5324C895.922 61.1227 899.744 60.0654 903.667 59.3605C907.591 58.5549 911.413 58.1521 915.135 58.1521C926.603 58.1521 937.316 60.3171 947.275 64.647C957.334 68.8763 966.086 74.8174 973.529 82.4703C980.973 90.1232 986.858 99.1859 991.184 109.658C995.509 120.03 997.672 131.409 997.672 143.794ZM956.177 143.794C956.177 137.551 955.071 131.761 952.858 126.424C950.745 120.987 947.828 116.304 944.106 112.377C940.384 108.45 936.008 105.379 930.978 103.163C926.049 100.948 920.768 99.8404 915.135 99.8404C909.502 99.8404 904.17 101.099 899.141 103.617C894.212 106.033 889.886 109.306 886.164 113.434C882.442 117.462 879.525 122.145 877.413 127.482C875.3 132.718 874.244 138.155 874.244 143.794C874.244 150.038 875.3 155.828 877.413 161.164C879.525 166.501 882.442 171.133 886.164 175.061C889.886 178.988 894.212 182.109 899.141 184.425C904.17 186.641 909.502 187.748 915.135 187.748C920.768 187.748 926.049 186.641 930.978 184.425C936.008 182.109 940.384 178.988 944.106 175.061C947.828 171.133 950.745 166.501 952.858 161.164C955.071 155.828 956.177 150.038 956.177 143.794Z", "M396.301 222C439.879 222 475.205 186.672 475.205 143.096C475.205 99.5194 439.879 64.1914 396.301 64.1914C352.723 64.1914 317.396 99.5194 317.396 143.096C317.396 186.672 352.723 222 396.301 222ZM393.311 100.364C388.657 96.33 381.616 96.8326 377.583 101.486C373.55 106.139 374.054 113.182 378.707 117.215L407.166 141.88L378.323 169.325C373.862 173.569 373.687 180.628 377.932 185.087C382.176 189.55 389.234 189.724 393.695 185.479L430.063 150.872C435.564 145.639 435.358 136.804 429.62 131.829L393.311 100.364Z", "M1069 197.923C1069 213.68 1056.43 226.453 1040.91 226.453C1025.4 226.453 1012.83 213.68 1012.83 197.923C1012.83 182.166 1025.4 169.393 1040.91 169.393C1056.43 169.393 1069 182.166 1069 197.923Z"];
+
+let sheetBlob = null;
+const C = { bg: "#FFEFEF", topbar: "#FFDBDA", card: "#ffffff", line: "rgba(235, 38, 29, 0.35)", red: "#EB261D", red2: "#F25944", text: "#000000", text2: "#2b1d1d", dim: "#7d5f5f", wm: "#FFDBDA" };
+const FF = '"Google Sans", "Golos Text", "Segoe UI", Roboto, Arial, sans-serif';
+
+function rr(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+
+/* перенос рядків для сегментів різного кольору/накреслення */
+function layoutRuns(ctx, runs, maxW) {
+  const lines = [[]]; let w = 0;
+  runs.forEach(run => {
+    const parts = run.text.split(/(\s+)/).filter(s => s.length);
+    parts.forEach(p => {
+      ctx.font = run.font; const pw = ctx.measureText(p).width;
+      const isSpace = /^\s+$/.test(p);
+      if (!isSpace && w + pw > maxW && w > 0) { lines.push([]); w = 0; }
+      if (isSpace && w === 0) return;
+      lines[lines.length - 1].push({ t: p, font: run.font, color: run.color, w: pw }); w += pw;
+    });
+  });
+  return lines;
+}
+function drawLines(ctx, lines, x, y, lh) {
+  lines.forEach((ln, i) => { let cx = x; ln.forEach(tok => { ctx.font = tok.font; ctx.fillStyle = tok.color; ctx.fillText(tok.t, cx, y + i * lh); cx += tok.w; }); });
+  return lines.length * lh;
+}
+
+function personRuns(p) {
+  const runs = [];
+  p.m.forEach((m, i) => {
+    if (i) runs.push({ text: " ⟶ ", font: `700 19px ${FF}`, color: C.red });
+    runs.push({ text: m, font: `500 19px ${FF}`, color: C.text2 });
+  });
+  return runs;
+}
+
+function measureGroup(ctx, g, colW) {
+  const inner = colW - 48;
+  ctx.font = `700 23px ${FF}`;
+  const head = layoutRuns(ctx, [{ text: g.name, font: `700 23px ${FF}`, color: C.red }], inner - 58);
+  let h = 24 + Math.max(42, head.length * 30) + 18 + 14;
+  const blocks = PEOPLE.filter(p => p.g === g.id).map(p => {
+    const nameL = layoutRuns(ctx, [{ text: p.name, font: `700 27px ${FF}`, color: C.red }], inner);
+    const descL = layoutRuns(ctx, [{ text: p.desc, font: `400 19px ${FF}`, color: C.dim }], inner);
+    const mL = layoutRuns(ctx, personRuns(p), inner);
+    const bh = nameL.length * 34 + 6 + descL.length * 27 + 8 + mL.length * 27;
+    return { nameL, descL, mL, bh };
+  });
+  blocks.forEach((b, i) => { h += b.bh + (i ? 34 : 0); });
+  h += 24;
+  return { head, blocks, h };
+}
+
+/* фірмовий логотип znohub (векторний, з SVG бренду) */
+function drawLogo(ctx, x, cy, h) {
+  const k = h / 230;
+  ctx.save(); ctx.translate(x, cy - h / 2); ctx.scale(k, k); ctx.fillStyle = "#000";
+  LOGO_PATHS.forEach((d, i) => ctx.fill(new Path2D(d), i === 5 ? "evenodd" : "nonzero"));
+  ctx.restore();
+  return 1069 * k;
+}
+/* шеврони на банері, як у шаблоні конспекту */
+function drawChevrons(ctx, x, y, w, h, r) {
+  const k = h / 58;
+  ctx.save(); rr(ctx, x, y, w, h, r); ctx.clip();
+  ctx.strokeStyle = "#fff"; ctx.lineWidth = 22 * k; ctx.lineCap = "round"; ctx.lineJoin = "round";
+  [[4, .25], [49, .15], [94, .08]].forEach(([vx, a]) => {
+    ctx.globalAlpha = a;
+    [[x + vx * k, 1], [x + w - vx * k, -1]].forEach(([px, s]) => {
+      ctx.beginPath(); ctx.moveTo(px + s * 21 * k, y - 8 * k); ctx.lineTo(px, y + 26.6 * k); ctx.lineTo(px + s * 21 * k, y + 61 * k); ctx.stroke();
+    });
+  });
+  ctx.restore();
+}
+function drawInsta(ctx, x, y, s) {
+  ctx.strokeStyle = C.red; ctx.lineWidth = 2; rr(ctx, x, y, s, s, s * 0.28); ctx.stroke();
+  ctx.beginPath(); ctx.arc(x + s / 2, y + s / 2, s * 0.22, 0, Math.PI * 2); ctx.stroke();
+  ctx.beginPath(); ctx.arc(x + s * 0.78, y + s * 0.22, 1.6, 0, Math.PI * 2); ctx.fillStyle = C.red; ctx.fill();
+}
+
+async function buildSheet() {
+  try { await Promise.all(["400 19px", "500 19px", "700 27px", "600 34px"].map(f => document.fonts.load(`${f} "Golos Text"`))); } catch (e) {}
+  const W = 1200, pad = 40, gap = 24, colW = (W - pad * 2 - gap) / 2, S = 2;
+  const meas = document.createElement("canvas").getContext("2d");
+  const M = {}; GROUPS.forEach(g => M[g.id] = measureGroup(meas, g, colW));
+  const cols = [["kmb", "tgks"], ["rt", "hr"]];
+  const top = 24 + 56 + 20 + 88 + 26 + 60;
+  const colH = cols.map(c => c.reduce((s, id, i) => s + M[id].h + (i ? gap : 0), 0));
+  const H = top + Math.max(...colH) + 40 + 38;
+
+  const cv = document.createElement("canvas"); cv.width = W * S; cv.height = H * S;
+  const ctx = cv.getContext("2d"); ctx.scale(S, S); ctx.textBaseline = "alphabetic";
+  ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+  // водяний знак
+  ctx.fillStyle = C.wm;
+  for (let y = 330; y < H - 60; y += 42) for (const cx0 of [20, W - 20]) { ctx.beginPath(); ctx.arc(cx0, y, 7, 0, Math.PI * 2); ctx.fill(); }
+  // шапка
+  ctx.fillStyle = C.topbar; rr(ctx, pad, 24, W - pad * 2, 56, 28); ctx.fill();
+  drawLogo(ctx, pad + 30, 52, 24);
+  ctx.font = `500 19px ${FF}`; const nick = "yanina_znohub_hist"; const nw = ctx.measureText(nick).width;
+  const nx = W / 2 - (nw + 32) / 2; drawInsta(ctx, nx, 41, 22); ctx.fillStyle = C.text; ctx.fillText(nick, nx + 32, 59);
+  // банер
+  const by = 100, bh = 88; const gr = ctx.createLinearGradient(0, by, 0, by + bh); gr.addColorStop(0, C.red); gr.addColorStop(1, C.red2);
+  ctx.fillStyle = gr; rr(ctx, pad, by, W - pad * 2, bh, 18); ctx.fill();
+  drawChevrons(ctx, pad, by, W - pad * 2, bh, 18);
+  ctx.font = `600 34px ${FF}`; ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.fillText("Діячі національного відродження: шпаргалка", W / 2, by + 56); ctx.textAlign = "left";
+  // підзаголовок з червоною рискою
+  const ty = by + bh + 26; ctx.fillStyle = C.red; rr(ctx, pad, ty, 4, 34, 2); ctx.fill();
+  const intro = layoutRuns(ctx, [{ text: "Слова-маркери. ", font: `700 20px ${FF}`, color: C.text }, { text: "Ім’я, хто це та ключові факти для НМТ.", font: `400 20px ${FF}`, color: C.text2 }], W - pad * 2 - 30);
+  drawLines(ctx, intro, pad + 20, ty + 24, 28);
+  // групи
+  cols.forEach((c, ci) => {
+    let y = top; const x = pad + ci * (colW + gap);
+    c.forEach(id => {
+      const g = GROUPS.find(q => q.id === id), m = M[id], idx = GROUPS.indexOf(g) + 1;
+      ctx.fillStyle = C.card; rr(ctx, x, y, colW, m.h, 20); ctx.fill();
+      ctx.strokeStyle = C.line; ctx.lineWidth = 2; rr(ctx, x + 1, y + 1, colW - 2, m.h - 2, 19); ctx.stroke();
+      const hx = x + 24, hy = y + 24;
+      const bg = ctx.createLinearGradient(0, hy, 0, hy + 42); bg.addColorStop(0, C.red); bg.addColorStop(1, C.red2);
+      ctx.fillStyle = bg; rr(ctx, hx, hy, 42, 42, 10); ctx.fill();
+      ctx.font = `700 20px ${FF}`; ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.fillText(String(idx), hx + 21, hy + 28); ctx.textAlign = "left";
+      const headH = Math.max(42, m.head.length * 30);
+      const headTop = hy + (headH - m.head.length * 30) / 2;
+      drawLines(ctx, m.head, hx + 58, headTop + 22 + (m.head.length === 1 ? 6 : 0), 30);
+      let py = hy + headH + 18;
+      ctx.strokeStyle = C.line; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(hx, py - 4); ctx.lineTo(x + colW - 24, py - 4); ctx.stroke();
+      py += 14;
+      m.blocks.forEach((b, i) => {
+        if (i) py += 34;
+        let yy = py + 26; yy += drawLines(ctx, b.nameL, hx, yy, 34) - 34 + 6;
+        yy += 27; yy += drawLines(ctx, b.descL, hx, yy, 27) - 27 + 8;
+        yy += 27; drawLines(ctx, b.mL, hx, yy, 27);
+        py += b.bh;
+      });
+      y += m.h + gap;
+    });
+  });
+  ctx.font = `400 15px ${FF}`; ctx.fillStyle = C.dim; ctx.textAlign = "center"; ctx.fillText("znohub · підготовка до НМТ з історії України", W / 2, H - 26); ctx.textAlign = "left";
+  const sg = ctx.createLinearGradient(0, H - 8, 0, H); sg.addColorStop(0, C.red); sg.addColorStop(1, C.red2);
+  ctx.fillStyle = sg; ctx.fillRect(0, H - 8, W, 8);
+
+  sheetBlob = await new Promise(res => cv.toBlob(res, "image/png"));
+  $("sheetImg").src = URL.createObjectURL(sheetBlob);
+}
+
+/* завантаження шпаргалки: звичайне завантаження браузера */
+$("dl").addEventListener("click", () => {
+  if (!sheetBlob) return;
+  const url = URL.createObjectURL(sheetBlob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "znohub-shpargalka-diyachi-vidrodzhennya.png";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+  $("dlStatus").textContent = "Шпаргалку збережено.";
+});
+$("sheetSub").textContent = "Збережіть картинку, щоб повторювати перед НМТ. Якщо кнопка не спрацює, натисніть на зображення правою кнопкою або утримуйте його пальцем.";
+
+start();
+</script>
+</body>
+</html>
